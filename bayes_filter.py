@@ -8,6 +8,7 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import classification_report
 from plot_learning_curve import plot_learning_curve
+from sklearn.metrics import confusion_matrix
 
 with open("spambase_clean.data") as f:
     data = np.loadtxt(f, delimiter=',')
@@ -36,6 +37,10 @@ r = cross_val_score(gaussian_bayes, x, y, cv=10, n_jobs=-1, scoring='accuracy')
 print("Minimum accuracy for Gaussian Naive Bayes: {}".format(r.min()))
 print("Average accuracy for Gaussian Naive Bayes: {}".format(r.mean()))
 print("Maximum accuracy for Gaussian Naive Bayes: {}".format(r.max()))
+
+print("Confusion matrix:\n")
+tn, fp, fn, tp = confusion_matrix(y, y_pred).ravel()
+(tn, fp, fn, tp)
 
 pp = pprint.PrettyPrinter(indent=2)
 # Precision, Recall, F1-score, support
