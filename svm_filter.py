@@ -4,8 +4,12 @@ import numpy as np
 import sys
 import matplotlib.pyplot as plt
 import warnings
+
+
 def warn(*args, **kwargs):
     pass
+
+
 warnings.warn = warn
 import sklearn.exceptions
 from sklearn.svm import SVC
@@ -17,10 +21,6 @@ from plot_learning_curve import plot_learning_curve
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
-
-
-
-
 
 classification_report_results = {
     'Linear': [],
@@ -67,13 +67,11 @@ classifiers = {
 
 # Split the data into a training set and a test set
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
-y_test = np.array(y_test)
-y_train = np.array(y_train)
 y_test = y_test.astype(int)
 y_train = y_train.astype(int)
-x_train_normalized, x_test_normalized, y_train_normalized, y_test_normalized = train_test_split(x_normalized, y, random_state=0)
+x_train_normalized, x_test_normalized, y_train_normalized, y_test_normalized = train_test_split(x_normalized, y,
+                                                                                                random_state=0)
 y_test_normalized = np.array(y_test_normalized)
-y_train_normalized = np.array(y_train_normalized)
 y_test_normalized = y_test_normalized.astype(int)
 y_train_normalized = y_train_normalized.astype(int)
 
@@ -146,24 +144,22 @@ np.set_printoptions(precision=2)
 print("Confusion matrix of non-normalized vectors")
 for k, v in classifiers.items():
     # Plot non-normalized confusion matrix
-    plot_confusion_matrix(y_test, y_pred[k], classes=y_test,
-                      title='Confusion matrix, without normalization')
+    # plot_confusion_matrix(y_test, y_pred[k], classes=y_test, title='Confusion matrix, without normalization')
 
     # Plot normalized confusion matrix
     plot_confusion_matrix(y_test, y_pred[k], classes=y_test, normalize=True,
-                      title='Normalized confusion matrix')
+                          title='Normalized confusion matrix - {} kernel'.format(k))
 
     plt.show()
 
 print("Confusion matrix of normalized vectors")
 for k, v in classifiers.items():
     # Plot non-normalized confusion matrix
-    plot_confusion_matrix(y_test_normalized, y_pred_normalized[k], classes=y_test_normalized,
-                          title='Confusion matrix, without normalization')
+    # plot_confusion_matrix(y_test_normalized, y_pred_normalized[k], classes=y_test_normalized, title='Confusion matrix, without normalization')
 
     # Plot normalized confusion matrix
     plot_confusion_matrix(y_test_normalized, y_pred_normalized[k], classes=y_test_normalized, normalize=True,
-                          title='Normalized confusion matrix')
+                          title='Normalized confusion matrix with normalized vectors - {} kernel'.format(k))
 
     plt.show()
 
